@@ -4,6 +4,7 @@
 
 
 <script setup>
+console.log(import.meta.env);
 </script>
 
 <style scoped>

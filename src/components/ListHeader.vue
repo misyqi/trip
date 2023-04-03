@@ -10,28 +10,41 @@
               </template>
             </el-popconfirm>
            </div>
-            <el-tooltip
+            <div>
+              <el-tooltip
+            v-if="btns.includes('refresh')"
             effect="dark"
             content="刷新"
             placement="top"
             >
-        <el-button text @click="$emit('refresh')">
-            <el-icon size="20px"><Refresh/></el-icon>
+        <el-button text size="small" @click="$emit('refresh')">
+            <el-icon size="10px"><Refresh/></el-icon>
         </el-button>
         </el-tooltip>
+        <el-tooltip
+           v-if="btns.includes('download')"
+            effect="dark"
+            content="导出数据"
+            placement="top"
+            >
+        <el-button text size="small" @click="$emit('download')">
+            <el-icon size="15px"><Download/></el-icon>
+        </el-button>
+        </el-tooltip>
+            </div>
         </div>
 </template>
 
 <script setup>
 import { computed } from "vue"
 
-defineEmits(["create","refresh",'delete'])
+defineEmits(["create","refresh",'delete','download'])
 
 
 const props = defineProps({
     layout:{
         type:String,
-        default:"create,refresh"
+        default:"create,refresh,"
     }
 })
 

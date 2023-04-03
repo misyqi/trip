@@ -1,6 +1,6 @@
 <template>
      <el-drawer v-model="showDrawer"
-      :title="title"
+       :title="title"
        :size="size" 
        :close-on-click-modal="false"
        :destroy-on-close="destroyOnClose">

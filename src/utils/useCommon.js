@@ -82,7 +82,6 @@ export function useInitTable(opt = {}) {
     }
 
     const multiSelectionIds = ref([])
-
     const handelSelectionChange = (e) => {
         multiSelectionIds.value = e.map(o => o.id)
     }
@@ -133,7 +132,7 @@ export function useInitForm(opt = {}) {
     const handleSubmit = () => {
         formRef.value.validate((valid) => {
             if (!valid) return
-            //formDrawerRef.value.showLoading()
+            // formDrawerRef.value.showLoading()
             let body = {}
             if(opt.beforeSubmit && typeof opt.beforeSubmit == 'function'){
                 body = opt.beforeSubmit({...form})

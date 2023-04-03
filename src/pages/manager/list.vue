@@ -24,7 +24,7 @@
                 <template #default="{row}">
                     <div class="flex items-center">
                         <el-avatar :size="60" :src="row.avatar" >
-                        <img src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'" alt="">
+                        <img src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" alt="">
                         </el-avatar>
                         <div class="ml-3">
                             <h6>{{ row.username}}</h6>
@@ -87,8 +87,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="状态" prop="status" >
-                <el-switch v-model="form.status" :active-value="1" :inactive-value="0">
-                
+                <el-switch v-model="form.status" :active-value="1" :inactive-value="0">          
                 </el-switch>
             </el-form-item>
             </el-form>
@@ -140,90 +139,6 @@ const {
 })
 
 
-
-// // 分页
-// const currentPage = ref(1)
-// const total = ref(0)
-// const limit = ref(10)
-
-// // 获取数据
-// function getData(p = null){
-//     if(typeof p =="number"){
-//         currentPage.value = p
-//     }
-//     loading.value=true
-//     getManagerList(currentPage.value,searchForm).then(res=>{
-//         tableData.value = res.list
-//         total.value = res.totalCount
-//         roles.value=res.roles
-//     })
-//     .finally(()=>{
-//         loading.value=false
-//     }) 
-// }
-// getData()
-
-
-// 表单部分
-// const formDrawerRef = ref(null)
-// const formRef = ref(null)
-// const form = reactive({
-//     username:"",
-//     password:"",
-//     role_id:null,
-//     status:1,
-//     avatar:""
-// })
-
-// const editId = ref(0)
-// const drawerTitle = computed(() =>editId.value?"修改" :"新增")
-// const handleSubmit = () =>{
-//     formRef.value.validate((valid) =>{
-//         if(!valid) return
-//         //formDrawerRef.value.showLoading()
-
-//         const fun = editId.value?updateManager(editId.value,form):createManager(form)
-//         fun(form).then(res =>{
-//             toast(drawerTitle.value +"成功")
-//             // 修改刷新当前页，新增刷新第一页
-//             getData(editId.value?false:1)
-//             formDrawerRef.value.close()
-            
-//         }).finally(()=>{
-//             //formDrawerRef.value.hideLoading()
-//         })
-//     })
-// }
-// // 重置表单
-// function resetForm(row = false){
-//     // todo
-//     if(formRef.value) formRef.value.clearValidiDate()
-//     if(!row){
-//         for(const key in form){
-//             form[key] = row[key]
-//         }
-//     }
-// }
-// // 新增
-// const handleCreate = () =>{
-//     editId.value = 0
-//     resetForm({
-//         username:"",
-//         password:"",
-//         role_id:null,
-//         status:1,
-//         avatar:""
-//     })
-//     formDrawerRef.value.open()
-// }
-// // 编辑
-// const handleEdit = (row) =>{
-//     editId.value = row.id
-//     resetForm(row)
-//     formDrawerRef.value.open()
-
-// }
-
 const {
     formDrawerRef,
     formRef,
@@ -245,25 +160,5 @@ const {
     update:updateManager,
     create:createManager
 })
-
-// 删除
-// const handleDelete=(id) =>{
-//     loading.value = true
-//     deleteManager(id).then(res=>{
-//         toast("删除成功")
-//         getData()
-//     }).finally(()=>{
-//         loading.value = false
-//     })
-
-// }
-// // 修改状态
-// const handleStatusChange = (status,row) =>{
-//     updateManagerStatus(row.id,status).then(res=>{
-//         toast("修改成功")
-//         row.status=status
-//     })
-
-// }
 
 </script>

@@ -21,43 +21,21 @@
                </SearchItem>
                 </template>
             </Search>
-        <!-- <el-form :model="searchForm" label-width="80px" class="mb-3" size="small">
-            <el-row :gutter="20">
-                <el-col :span="8">
-                    <el-form-item label="关键词">
-                     <el-input v-model="searchForm.title" placeholder="商品名称" clearable></el-input>
-                     </el-form-item>
-                </el-col>
-                <el-col :span="8" :offset="0" v-if="showSearch">
-                    <el-form-item label="商品分类" prop="category_id">
-                        <el-select v-model="searchForm.category_id" placeholder="请选择商品分类">
-                        <el-option v-for="item in category_list"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id">
-                    </el-option>
-                    </el-select>
-                     </el-form-item>
-                </el-col>
-                <el-col :span="8" :offset="showSearch? 0:8">
-                    <el-form-item >
-                    <el-button type="primary" @click="getData">搜索</el-button>
-                    <el-button @click="resetSearchForm">重置</el-button>
-                    <el-button type="primary" text @click="showSearch = !showSearch">
-                        {{ showSearch?'收起':'展开' }}
-                        <el-icon >
-                            <ArrowUp v-if="showSearch"/>
-                            <ArrowDown v-else/>
-                        </el-icon>
-                    </el-button>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-        </el-form> -->
 
-        <ListHeader @create="handleCreate" @refresh="getData"/>
+        <ListHeader 
+        layout="create,delete,refresh" 
+        @create="handleCreate"
+        @refresh="getData"
+        @delete="handleMultiDelete">
+
+        <el-button size="small" 
+        @click = "handleMultiStatusChange(1)" 
+        v-if="searchForm.tab=='all'|| searchForm.tab=='off'">上架</el-button>   
+        <el-button size="small" 
+        @click = "handleMultiStatusChange(0)" 
+        v-if="searchForm.tab=='all'|| searchForm.tab=='saling'">下架</el-button>  
+    </ListHeader>
       
-
         <el-table :data="tableData" stripe style="width: 100%" v-loading="loading">
             <el-table-column  label="商品" width="300">
                 <template #default="{row}">
@@ -109,7 +87,7 @@
                  size="small" text
                   @click="handleSetGoodsContent(scope.row)" 
                   :loading="scope.row.contentLoading">商品详情</el-button>
-                <el-popconfirm title="是否删除" confirmButtonText="确认" cancelButtonText="取消" @confirm="handleDelete(scope.row.id)">
+                <el-popconfirm title="是否删除" confirmButtonText="确认" cancelButtonText="取消" @confirm="handleDelete([scope.row.id])">
                     <template #reference>
                         <el-button class="px-1" text type="primary" size="small">删除</el-button>
                      </template>
@@ -196,7 +174,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { getGoodsList,updateGoodsStatus,createGoods,updateGoods,deleteGoods } from "../../api/goods";
+import { getGoodsList,updateGoodsStatus,createGoods,updateGoods,deleteGoods,restoreGoods } from "../../api/goods";
 import FormDrawer  from "../../components/FormDrawer.vue";
 
 import ChooseImage from "../../components/ChooseImage.vue";
@@ -278,25 +256,6 @@ const {
     create:createGoods
 })
 
-// 删除
-// const handleDelete=(id) =>{
-//     loading.value = true
-//     deleteManager(id).then(res=>{
-//         toast("删除成功")
-//         getData()
-//     }).finally(()=>{
-//         loading.value = false
-//     })
-
-// }
-// // 修改状态
-// const handleStatusChange = (status,row) =>{
-//     updateManagerStatus(row.id,status).then(res=>{
-//         toast("修改成功")
-//         row.status=status
-//     })
-
-// }
 
 const tabbars = [{
     key:'all',

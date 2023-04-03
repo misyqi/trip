@@ -19,6 +19,8 @@ export const goodsId = ref(0)
 // 规格选项列表
 export const sku_card_list = ref([])
 
+export const sku_list = ref([])
+
 // 初始化规格选项列表
 export function initSkuCardList(d) {
     sku_card_list.value = d.goodsSkusCard.map(item => {
@@ -30,6 +32,7 @@ export function initSkuCardList(d) {
         })
         return item
     })
+    sku_list.value = d.goodsSkus
 }
 
 // 添加规格选项
@@ -126,6 +129,7 @@ export function handleChooseSetGoodsSkusCard(id,data){
     .finally(()=>{
         item.loading = false
     })
+    
 }
 
 // 初始化规格的值
@@ -214,3 +218,4 @@ export function initSkusCardItem(id) {
         handleChange
     }
 }
+
